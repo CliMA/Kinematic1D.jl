@@ -24,11 +24,11 @@ function parse_commandline()
         default = true
         "--z_min"
         help = "Bottom of the computational domain [m]"
-        arg_type = Real
+        arg_type = Float64
         default = 0.0
         "--z_max"
         help = "Top of the computational domain [m]"
-        arg_type = Real
+        arg_type = Float64
         default = 2000.0
         "--n_elem"
         help = "Number of computational elements"
@@ -40,24 +40,28 @@ function parse_commandline()
         default = 1.0
         "--dt_output"
         help = "Output time step [s]"
-        arg_type = Real
+        arg_type = Float64
         default = 10.0
         "--t_ini"
         help = "Time at the beginning of the simulation [s]"
-        arg_type = Real
+        arg_type = Float64
         default = 0.0
         "--t_end"
         help = "Time at the end of the simulation [s]"
-        arg_type = Real
+        arg_type = Float64
         default = 3600.0
         "--w1"
         help = "Maximum prescribed updraft momentum flux [m/s * kg/m3]"
-        arg_type = Real
+        arg_type = Float64
         default = 2.0
         "--t1"
         help = "Oscillation time of the prescribed momentum flux [s]"
-        arg_type = Real
+        arg_type = Float64
         default = 600.0
+        "--N_drop"
+        help = "Prescribed cloud droplet number concentration [1/m3]"
+        arg_type = Float64
+        default = 1e8
     end
 
     return AP.parse_args(s)

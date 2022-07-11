@@ -133,7 +133,7 @@ end
     if params.rain_scheme_choice == 0.0
         S_qt_rain = -min(q.liq / dt, CM1.conv_q_liq_to_q_rai(microphys_params, q.liq))
     elseif params.rain_scheme_choice == 2000.0
-        S_qt_rain = -min(q.liq / dt, CM2.conv_q_liq_to_q_rai_KK2000(microphys_params, q.liq, ρ))
+        S_qt_rain = -min(q.liq / dt, CM2.conv_q_liq_to_q_rai_KK2000(microphys_params, q.liq, ρ, N_d = params.N_drop))
     else
         error("Invalid rain scheme")
     end

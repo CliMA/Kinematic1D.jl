@@ -18,6 +18,7 @@ Base.@kwdef struct KinematicParameters{FT, MP} <: AKP
     w1::FT
     t1::FT
     rain_scheme_choice::FT
+    N_drop::FT
     microphys_params::MP
 end
 thermodynamics_params(ps::AKP) = CM.Parameters.thermodynamics_params(ps.microphys_params)
@@ -27,6 +28,7 @@ Base.eltype(::KinematicParameters{FT}) where {FT} = FT
 w1(ps::AKP) = ps.w1
 t1(ps::AKP) = ps.t1
 rain_scheme_choice(ps::AKP) = ps.rain_scheme_choice
+N_drop(ps::AKP) = ps.N_drop
 
 # Forward parameters to Thermodynamics
 const TDPS = TD.Parameters.ThermodynamicsParameters

@@ -11,6 +11,7 @@ function create_parameter_set(
     FTD = CP.float_type(toml_dict),
     w1 = 2.0,
     t1 = 600.0,
+    rain_scheme_choice = 0.0
 )
     FT = CP.float_type(toml_dict)
     override_file = joinpath(out_dir, "override_dict.toml")
@@ -55,6 +56,10 @@ function create_parameter_set(
         println(io, "alias = \"t1\"")
         println(io, "value = " * string(t1))
         println(io, "type = \"float\"")
+        println(io, "[warm_rain_autoconversion_and_accretion_choice]")
+        println(io, "alias = \"rain_scheme_choice\"")
+        println(io, "value = " * string(rain_scheme_choice))
+        println(io, "type = \"float\"")
     end
     toml_dict = CP.create_toml_dict(FT; override_file, dict_type="alias")
     isfile(override_file) && rm(override_file; force=true)
@@ -73,7 +78,7 @@ function create_parameter_set(
     )
     MP = typeof(microphys_params)
 
-    aliases = ["w1", "t1"]
+    aliases = ["w1", "t1", "rain_scheme_choice"]
     pairs = CP.get_parameter_values!(toml_dict, aliases, "Kinematic1D")
 
     param_set = Kinematic1D.Parameters.KinematicParameters{FTD, MP}(; pairs..., microphys_params)

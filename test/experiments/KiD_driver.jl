@@ -70,7 +70,9 @@ Stats = KD.NetCDFIO_Stats(fname, 1.0, vec(face_coord), vec(coord))
 
 # Instantiate CliMA Parameters and overwrite the defaults
 toml_dict = CP.create_toml_dict(FT; dict_type = "alias")
-params = create_parameter_set(path, toml_dict, FT, simulation_setup["w1"], simulation_setup["t1"])
+params = create_parameter_set(
+    path, toml_dict, FT, simulation_setup["w1"], simulation_setup["t1"], simulation_setup["rain_scheme_choice"]
+)
 
 # Solve the initial value problem for density profile
 ρ_profile = KD.ρ_ivp(FT, params)

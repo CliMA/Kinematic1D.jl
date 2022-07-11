@@ -14,6 +14,10 @@ function parse_commandline()
         help = "Precipitation model choice: NoPrecipitation, Precipitation0M, Precipitation1M"
         arg_type = String
         default = "Precipitation1M"
+        "--rain_scheme_choice"
+        help = "Rain autoconversion and accretion choice: Clima1M, KK2000"
+        arg_type = Int
+        default = 0
         "--plotting_flag"
         help = "Set to true if you want to generate some basic plots at the end of the simulation"
         arg_type = Bool
@@ -32,7 +36,7 @@ function parse_commandline()
         default = 256
         "--dt"
         help = "Simulation time step [s]"
-        arg_type = Real
+        arg_type = Float64
         default = 1.0
         "--dt_output"
         help = "Output time step [s]"

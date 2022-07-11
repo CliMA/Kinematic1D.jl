@@ -129,23 +129,36 @@ end
 
     q = TD.PhasePartition(q_tot, q_liq, q_ice)
 
-    # autoconversion liquid to rain and ice to snow
-    #S_qt_rain = -min(q.liq / dt, CM1.conv_q_liq_to_q_rai(microphys_params, q.liq))
-    S_qt_rain = -min(q.liq / dt, CM2.conv_q_liq_to_q_rai_KK2000(microphysics_params, q.liq, ρ))
-
-    S_qt_snow = -min(q.ice / dt, CM1.conv_q_ice_to_q_sno(microphys_params, q, ρ, T))
+    # autoconversion liquid to rain
+    if params.rain_scheme_choice == 0.0
+        S_qt_rain = -min(q.liq / dt, CM1.conv_q_liq_to_q_rai(microphys_params, q.liq))
+    elseif params.rain_scheme_choice == 2000.0
+        S_qt_rain = -min(q.liq / dt, CM2.conv_q_liq_to_q_rai_KK2000(microphys_params, q.liq, ρ))
+    else
+        error("Invalid rain scheme")
+    end
     S_q_rai -= S_qt_rain
-    S_q_sno -= S_qt_snow
-    S_q_tot += S_qt_rain + S_qt_snow
+    S_q_tot += S_qt_rain
     S_q_liq += S_qt_rain
+
+    # autoconversion ice to snow
+    S_qt_snow = -min(q.ice / dt, CM1.conv_q_ice_to_q_sno(microphys_params, q, ρ, T))
+    S_q_sno -= S_qt_snow
+    S_q_tot += S_qt_snow
     S_q_ice += S_qt_snow
     #θ_liq_ice_tendency -= 1 / Π_m / c_pm * (L_v0 * S_qt_rain + L_s0 * S_qt_snow)
 
     # accretion cloud water + rain
-    S_qr = min(
-        q.liq / dt,
-        CM1.accretion(microphys_params, CM.CommonTypes.LiquidType(), CM.CommonTypes.RainType(), q.liq, q_rai, ρ),
-    )
+    if params.rain_scheme_choice == 0.0
+        S_qr = min(
+            q.liq / dt,
+            CM1.accretion(microphys_params, CM.CommonTypes.LiquidType(), CM.CommonTypes.RainType(), q.liq, q_rai, ρ),
+        )
+    elseif params.rain_scheme_choice == 2000.0
+        S_qr = min(q.liq / dt, CM2.accretion_KK2000(microphys_params, q.liq, q_rai, ρ))
+    else
+        error("Invalid rain scheme")
+    end
     S_q_rai += S_qr
     S_q_tot -= S_qr
     S_q_liq -= S_qr

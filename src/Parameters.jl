@@ -17,6 +17,7 @@ const AKP = AbstractKinematicParameters
 Base.@kwdef struct KinematicParameters{FT, MP} <: AKP
     w1::FT
     t1::FT
+    rain_scheme_choice::FT
     microphys_params::MP
 end
 thermodynamics_params(ps::AKP) = CM.Parameters.thermodynamics_params(ps.microphys_params)
@@ -25,6 +26,7 @@ microphysics_params(ps::AKP) = ps.microphys_params
 Base.eltype(::KinematicParameters{FT}) where {FT} = FT
 w1(ps::AKP) = ps.w1
 t1(ps::AKP) = ps.t1
+rain_scheme_choice(ps::AKP) = ps.rain_scheme_choice
 
 # Forward parameters to Thermodynamics
 const TDPS = TD.Parameters.ThermodynamicsParameters

@@ -17,7 +17,7 @@ const AKP = AbstractKinematicParameters
 Base.@kwdef struct KinematicParameters{FT, MP} <: AKP
     w1::FT
     t1::FT
-    rain_scheme_choice::FT
+    rain_scheme_choice::String
     N_drop::FT
     microphys_params::MP
 end

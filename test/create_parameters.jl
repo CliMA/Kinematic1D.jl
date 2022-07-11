@@ -11,7 +11,7 @@ function create_parameter_set(
     FTD = CP.float_type(toml_dict),
     w1 = 2.0,
     t1 = 600.0,
-    rain_scheme_choice = 0.0,
+    rain_scheme_choice = "Clima1M",
     N_drop = 1e8,
 )
     FT = CP.float_type(toml_dict)
@@ -59,7 +59,7 @@ function create_parameter_set(
         println(io, "type = \"float\"")
         println(io, "[warm_rain_autoconversion_and_accretion_choice]")
         println(io, "alias = \"rain_scheme_choice\"")
-        println(io, "value = " * string(rain_scheme_choice))
+        println(io, "value = \"" * string(rain_scheme_choice) * "\"")
         println(io, "type = \"float\"")
         println(io, "[prescribed_cloud_drop_concentration_in_cubic_metres]")
         println(io, "alias = \"N_drop\"")

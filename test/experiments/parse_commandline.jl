@@ -16,8 +16,8 @@ function parse_commandline()
         default = "Precipitation1M"
         "--rain_scheme_choice"
         help = "Rain autoconversion and accretion choice: Clima1M, KK2000"
-        arg_type = Int
-        default = 0
+        arg_type = String
+        default = "Clima1M"
         "--plotting_flag"
         help = "Set to true if you want to generate some basic plots at the end of the simulation"
         arg_type = Bool

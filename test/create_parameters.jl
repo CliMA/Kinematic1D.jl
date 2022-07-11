@@ -60,7 +60,7 @@ function create_parameter_set(
         println(io, "[warm_rain_autoconversion_and_accretion_choice]")
         println(io, "alias = \"rain_scheme_choice\"")
         println(io, "value = \"" * string(rain_scheme_choice) * "\"")
-        println(io, "type = \"float\"")
+        println(io, "type = \"string\"")
         println(io, "[prescribed_cloud_drop_concentration_in_cubic_metres]")
         println(io, "alias = \"N_drop\"")
         println(io, "value = " * string(N_drop))

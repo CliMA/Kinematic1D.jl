@@ -20,6 +20,7 @@ const ODE = OrdinaryDiffEq
 const CMNe = CM.MicrophysicsNonEq
 const CM0 = CM.Microphysics0M
 const CM1 = CM.Microphysics1M
+const CM2 = CM.Microphysics2M
 
 include("Parameters.jl")
 import .Parameters as KP

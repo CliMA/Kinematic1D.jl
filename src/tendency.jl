@@ -130,7 +130,9 @@ end
     q = TD.PhasePartition(q_tot, q_liq, q_ice)
 
     # autoconversion liquid to rain and ice to snow
-    S_qt_rain = -min(q.liq / dt, CM1.conv_q_liq_to_q_rai(microphys_params, q.liq))
+    #S_qt_rain = -min(q.liq / dt, CM1.conv_q_liq_to_q_rai(microphys_params, q.liq))
+    S_qt_rain = -min(q.liq / dt, CM2.conv_q_liq_to_q_rai_KK2000(microphysics_params, q.liq, ρ))
+
     S_qt_snow = -min(q.ice / dt, CM1.conv_q_ice_to_q_sno(microphys_params, q, ρ, T))
     S_q_rai -= S_qt_rain
     S_q_sno -= S_qt_snow
